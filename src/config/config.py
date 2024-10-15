@@ -18,10 +18,11 @@ class Config:
     BASE_DIR = r"C:\Users\DOT\Documents\febri"
     # BASE_DIR = r"D:\engine\smart_parking\repository\github"
     # BASE_DIR = "D:/engine/smart_parking/repository/github"
-    # BASE_DIR = Path(_file_).parent.parent.resolve()
+    # BASE_DIR = Path(_file_).parent.parent.resolve()-z
     
     VEHICLE_DETECTION_MODEL_PATH = os.path.join(BASE_DIR, "weights/multiple-vehicle.pt")
     MODEL_PATH = os.path.join(BASE_DIR, "weights/yolov8n.pt")
+    # MODEL_PATH = os.path.join(BASE_DIR, "weights/yolo11n.pt")
     MODEL_PATH_PLAT = os.path.join(BASE_DIR, "weights/license_plate_detector.pt")
     MODEL_PATH_PLAT_v2 = os.path.join(BASE_DIR, "weights/license_plat.pt")
     MODEL_PATH_PLAT_YOLOV8X = os.path.join(BASE_DIR, "weights/yolov8x-supervision-license-plate-recognition.pt")
@@ -51,8 +52,8 @@ class Config:
         'rtsp://admin:Passw0rd@192.168.1.13',
         'rtsp://admin:Passw0rd@192.168.1.14',
         'rtsp://admin:Passw0rd@192.168.1.15',
-        'rtsp://admin:Passw0rd@192.168.1.16',
-        'rtsp://admin:Passw0rd@192.168.1.17'
+        # 'rtsp://admin:Passw0rd@192.168.1.16',
+        # 'rtsp://admin:Passw0rd@192.168.1.17'
     ]
 
     VIDEO_SOURCE_LT2_IN = fr'D:\engine\smart_parking\dataset\cctv\z.mp4'
@@ -82,8 +83,8 @@ class Config:
                     VIDEO_SOURCE_20241004_LT3_OUT, 
                     VIDEO_SOURCE_20241004_LT4_IN, 
                     VIDEO_SOURCE_20241004_LT4_OUT, 
-                    VIDEO_SOURCE_20241004_LT5_IN, 
-                    VIDEO_SOURCE_20241004_LT5_OUT
+                    # VIDEO_SOURCE_20241004_LT5_IN, 
+                    # VIDEO_SOURCE_20241004_LT5_OUT
                     ]
     
     VIDEO_SOURCE_LAPTOP = [
@@ -93,39 +94,39 @@ class Config:
 
     video_source = [VIDEO_SOURCE_LT2_IN, 
                     VIDEO_SOURCE_LT2_OUT, 
-                    # VIDEO_SOURCE_LT3_IN, 
-                    # VIDEO_SOURCE_LT3_OUT, 
-                    # VIDEO_SOURCE_LT4_IN, 
-                    # VIDEO_SOURCE_LT4_OUT, 
+                    VIDEO_SOURCE_LT3_IN, 
+                    VIDEO_SOURCE_LT3_OUT, 
+                    VIDEO_SOURCE_LT4_IN, 
+                    VIDEO_SOURCE_LT4_OUT, 
                     # VIDEO_SOURCE_LT5_IN, 
                     # VIDEO_SOURCE_LT5_OUT
                     ]
 
     VIDEO_SOURCE_PC = [
-                        fr'C:\Users\DOT\Documents\ai-smartparking\src\Assets\ocr_assets\z.mp4',
+        fr'C:\Users\DOT\Documents\febri\video\LT_5_IN.mp4',
+                        # fr'C:\Users\DOT\Documents\ai-smartparking\src\Assets\ocr_assets\z.mp4',
                         fr'C:\Users\DOT\Documents\febri\github\combined_video_out.mp4',
-                        fr'C:\Users\DOT\Documents\ai-smartparking\src\Assets\ocr_assets\z.mp4',
-                        fr'C:\Users\DOT\Documents\febri\github\combined_video_out.mp4',
-                        fr'C:\Users\DOT\Documents\ai-smartparking\src\Assets\ocr_assets\z.mp4',
-                        fr'C:\Users\DOT\Documents\febri\github\combined_video_out.mp4',
-                        fr'C:\Users\DOT\Documents\ai-smartparking\src\Assets\ocr_assets\z.mp4',
-                        fr'C:\Users\DOT\Documents\febri\github\combined_video_out.mp4'
+                        # fr'C:\Users\DOT\Documents\ai-smartparking\src\Assets\ocr_assets\z.mp4',
+                        # fr'C:\Users\DOT\Documents\febri\github\combined_video_out.mp4',
+                        # fr'C:\Users\DOT\Documents\ai-smartparking\src\Assets\ocr_assets\z.mp4',
+                        # fr'C:\Users\DOT\Documents\febri\github\combined_video_out.mp4',
+                        # fr'C:\Users\DOT\Documents\ai-smartparking\src\Assets\ocr_assets\z.mp4',
+                        # fr'C:\Users\DOT\Documents\febri\github\combined_video_out.mp4'
     ]
 
-    # VIDEO_SOURCE_PC = [
-    #                     fr'C:\Users\DOT\Documents\ai-smartparking\src\Assets\ocr_assets\z.mp4',
-    #                     # fr'C:\Users\DOT\Documents\febri\github\combined_video_out.mp4'
-    #     # fr'C:\Users\DOT\Documents\febri\video\LT_5_IN.mp4',
-    #     # fr'C:\Users\DOT\Documents\febri\video\LT_5_OUT.mp4',
-    # #     fr'C:\Users\DOT\Documents\febri\video\LT_5_IN.mp4',
-    # #     fr'C:\Users\DOT\Documents\febri\video\LT_5_OUT.mp4',
-    # #    fr'C:\Users\DOT\Documents\ai-smartparking\src\Assets\ocr_assets\z.mp4',
-    # #     fr'C:\Users\DOT\Documents\febri\video\LT_5_OUT.mp4',
-    # #     # fr'C:\Users\DOT\Documents\febri\github\combined_video_out.mp4',
-    # #      fr'C:\Users\DOT\Documents\febri\video\LT_5_IN.mp4',
-    # #     fr'C:\Users\DOT\Documents\febri\video\LT_5_OUT.mp4',
-
-    # ]
+    VIDEO_SOURCE_PC = [
+                        fr'C:\Users\DOT\Documents\ai-smartparking\src\Assets\ocr_assets\z.mp4',
+                        # fr'C:\Users\DOT\Documents\febri\github\combined_video_out.mp4'
+        # fr'C:\Users\DOT\Documents\febri\video\LT_5_IN.mp4',
+        # fr'C:\Users\DOT\Documents\febri\video\LT_5_OUT.mp4',
+    #     fr'C:\Users\DOT\Documents\febri\video\LT_5_IN.mp4',
+    #     fr'C:\Users\DOT\Documents\febri\video\LT_5_OUT.mp4',
+    #    fr'C:\Users\DOT\Documents\ai-smartparking\src\Assets\ocr_assets\z.mp4',
+    #     fr'C:\Users\DOT\Documents\febri\video\LT_5_OUT.mp4',
+    #     # fr'C:\Users\DOT\Documents\febri\github\combined_video_out.mp4',
+    #      fr'C:\Users\DOT\Documents\febri\video\LT_5_IN.mp4',
+    #     fr'C:\Users\DOT\Documents\febri\video\LT_5_OUT.mp4',
+    ]
 
     video_source1 = [VIDEO_SOURCE_LT2_IN]
 
@@ -137,14 +138,18 @@ class Config:
                     VIDEO_SOURCE_LT3_IN, 
                     VIDEO_SOURCE_LT3_OUT]
 
-    cam_source = [CAM_SOURCE_LT2_IN, 
-                  CAM_SOURCE_LT2_OUT, 
-                  CAM_SOURCE_LT3_IN, 
-                  CAM_SOURCE_LT3_OUT, 
-                  CAM_SOURCE_LT4_IN, 
-                  CAM_SOURCE_LT4_OUT, 
-                  CAM_SOURCE_LT5_IN, 
-                  CAM_SOURCE_LT5_OUT]
+    CAM_SOURCE = [
+        CAM_SOURCE_LT3_IN, 
+        CAM_SOURCE_LT2_OUT,
+        # CAM_SOURCE_LT2_IN, 
+        # CAM_SOURCE_LT2_OUT, 
+        # CAM_SOURCE_LT3_IN, 
+        # CAM_SOURCE_LT3_OUT, 
+        # CAM_SOURCE_LT4_IN, 
+        # CAM_SOURCE_LT4_OUT, 
+        # CAM_SOURCE_LT5_IN, 
+        # CAM_SOURCE_LT5_OUT
+        ]
 
     LINK = [f"192.168.1.10{i}" for i in range(1, 5)]
 
@@ -321,9 +326,9 @@ class Config:
     POINT_LT2_IN_R_END = (0.7444444444444445, 0.5472222222222223)
 
 
-    POINT_LT2_OUT_L_START = (0.34629629629629627, 0.3277777777777778)
+    POINT_LT2_OUT_L_START = (0.3296296296296296, 0.4027777777777778)
+    POINT_LT2_OUT_R_START = (0.6296296296296297, 0.4097222222222222)
     # POINT_LT2_OUT_L_START = (0.35833333333333334, 0.39166666666666666)
-    POINT_LT2_OUT_R_START = (0.5972222222222222, 0.32222222222222224)
     # POINT_LT2_OUT_R_START = (0.5787037037037037, 0.4)
     POINT_LT2_OUT_L_END = (0.05462962962962963, 0.6611111111111111)
     POINT_LT2_OUT_R_END = (0.8111111111111111, 0.6708333333333333)

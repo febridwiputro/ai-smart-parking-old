@@ -15,7 +15,7 @@ from src.model.text_detection_model import TextDetector
 from src.model.recognize_plate.utils.backgrounds import check_background
 
 
-class OCRController:
+class DetectionController:
     def __init__(self, ard, matrix_total, vehicle_detection_model, character_recognition, plate_detection_model):
         self.ocr = TextDetector(character_recognition=character_recognition)
         self.td = TextDetector(character_recognition=character_recognition)
@@ -265,15 +265,14 @@ class OCRController:
     def car_direct(self, frame, arduino_idx, cam_idx='a') -> list:
         floor_position, cam_position = self.check_floor(cam_idx=cam_idx)
         floor_id = floor_position
-        ori_frame = frame.copy()
 
         floor_id = floor_position
         slot = self.db_floor.get_slot_by_id(floor_id)
         total_slot = slot["slot"]
         vehicle_total = slot["vehicle_total"]
         
-        poly_points, ori_frame, _, _ = self.crop_frame(ori_frame, cam_idx)
-        car, results = self.get_car_image(ori_frame)
+        poly_points, frame, _, _ = self.crop_frame(frame, cam_idx)
+        car, results = self.get_car_image(frame)
 
         show_text(f"Floor : {floor_position} {cam_position}", frame, 5, 50)
         show_text(f"Plate No. : {self.plate_no}", frame, 5, 100, (0, 255, 0) if self.status_register else (0, 0, 255))
@@ -323,10 +322,9 @@ class OCRController:
         if car_direction is not None:
             self.car_direction = car_direction
 
-        car, start, end = list_data
+        car, start, end= list_data
         if car.shape[0] == 0 or car.shape[1] == 0:
             return "", frame, np.array([])
-
         if start and not end:
             self.passed = 2
         elif end:
@@ -335,26 +333,16 @@ class OCRController:
 
         if self.passed > 0:
             pre_plat, plat = self.get_process_plat_image(car)
-
-            # Skipping pre_plat if it doesn't meet the conditions
-            if (
-                (pre_plat.shape[0] <= 35 or pre_plat.shape[0] >= 130) or # 40 50
-                (pre_plat.shape[1] <= 60 and pre_plat.shape[1] >= 300) or
-                (pre_plat.shape[0] >= pre_plat.shape[1]) or
-                (pre_plat.shape[0] == 0 or pre_plat.shape[1] == 0)
-            ):
-                print("pre_plate_shape BEFORE :", pre_plat.shape)
+            if pre_plat.shape[0] == 0 or pre_plat.shape[1] == 0:
                 return "", frame, np.array([])
-
             text, bbox = self.image_to_text(pre_plat)
-            print("pre_plate_shape:", pre_plat.shape)
             show_cam("pre_plat", pre_plat)
-
-            if text:
+            # show_polygon(pre_plat, bbox, (0, 0, 0))
+            if text != "" and text is not None:
+                # print("real container : ", self.real_container_text)
+                # print("container plate_no : ", self.container_plate_no)
                 self.container_plate_no.append(text)
-
             return text, frame, plat
-
         return "", frame, np.array([])
     
     def check_db(self, text):

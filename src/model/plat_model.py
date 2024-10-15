@@ -58,23 +58,23 @@ from src.config.config import config
 #                 # Save the cropped plate image
 #                 cv2.imwrite(filename, cropped_plate)
 
-    # def is_valid_cropped_plate(self, cropped_plate):
-    #     """Check if the cropped plate meets the size requirements."""
-    #     height, width = cropped_plate.shape[:2]
+#     def is_valid_cropped_plate(self, cropped_plate):
+#         """Check if the cropped plate meets the size requirements."""
+#         height, width = cropped_plate.shape[:2]
 
-    #     if not (25 <= height <= 40):  # Height range around the average 31.65
-    #         return False
-    #     if not (80 <= width <= 120):  # Width range around the average 97.14
-    #         return False
+#         if not (25 <= height <= 40):  # Height range around the average 31.65
+#             return False
+#         if not (80 <= width <= 120):  # Width range around the average 97.14
+#             return False
 
-    #     if height >= width:
-    #         return False
+#         if height >= width:
+#             return False
 
-    #     # compare = abs(height - width)
-    #     # if not (30 <= compare <= 120):
-    #     #     return False
+#         # compare = abs(height - width)
+#         # if not (30 <= compare <= 120):
+#         #     return False
 
-    #     return True
+#         return True
 
 #     # def is_valid_cropped_plate(self, cropped_plate):
 #     #     """Check if the cropped plate meets the size requirements."""
@@ -180,8 +180,8 @@ class PlateDetector:
             x1, y1, x2, y2 = map(int, box)
             plat = image[max(y1, 0): min(y2, image.shape[0]), max(x1, 0): min(x2, image.shape[1])]
             
-            if self.is_valid_cropped_plate(plat):
-                return plat
+            # if self.is_valid_cropped_plate(plat):
+            return plat
 
         return np.array([])
 

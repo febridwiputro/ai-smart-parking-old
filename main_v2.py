@@ -16,7 +16,7 @@ from src.Integration.arduino import Arduino
 from src.config.config import config
 from src.controller.matrix_controller import MatrixController
 from src.view.show_cam import show_cam
-from src.controller.ocr_controller import OCRController
+from src.controller.detection_controller import DetectionController
 from src.model.recognize_plate.character_recognition import CharacterRecognize
 from src.model.cam_model import CameraV1
 from src.model.matrix_model import CarCounterMatrix
@@ -67,7 +67,7 @@ def main():
 
     try:
         print("Loading model...")
-        VEHICLE_DETECTION_MODEL = YOLO(config.MODEL_PATH)
+        VEHICLE_DETECTION_MODEL = YOLO("yolov11n.pt")
         PLATE_DETECTION_MODEL = YOLO(config.MODEL_PATH_PLAT_v2)
 
         model = ModelAndLabelLoader.load_model(config.MODEL_CHAR_RECOGNITION_PATH, config.WEIGHT_CHAR_RECOGNITION_PATH)
@@ -86,13 +86,12 @@ def main():
 
     if IS_DEBUG:
         # video_source = config.VIDEO_SOURCE_LAPTOP
-        # video_source = config.VIDEO_SOURCE_PC
-        video_source = config.VIDEO_SOURCE_20241004
+        video_source = config.VIDEO_SOURCE_PC
+        # video_source = config.VIDEO_SOURCE_20241004
         # video_source = config.video_source
         print(video_source)
         caps = [CameraV1(video, is_video=True) for video in video_source]
     else:
-        # video_source = config.CAM_SOURCE
         video_source = config.CAM_SOURCE_LT
         caps = [CameraV1(video, is_video=False) for video in video_source]
 
@@ -125,7 +124,7 @@ def main():
                 if plat_detects[i] is None:
                     matrix_controller = MatrixController(arduino_matrix=arduino_matrix, max_car=18, total_car=total_slot)
                     
-                    plat_detects[i] = OCRController(arduino_text, matrix_total=matrix_controller, vehicle_detection_model=VEHICLE_DETECTION_MODEL, character_recognition=CHARACTER_RECOGNITION, plate_detection_model=PLATE_DETECTION_MODEL)
+                    plat_detects[i] = DetectionController(arduino_text, matrix_total=matrix_controller, vehicle_detection_model=VEHICLE_DETECTION_MODEL, character_recognition=CHARACTER_RECOGNITION, plate_detection_model=PLATE_DETECTION_MODEL)
                     # plat_detects[i] = OCRController(arduino_text, matrix_total=matrix_controller, yolo_model=yolo_model)
                     print(f"Multiprocessing disabled for camera {i}.")
 
@@ -152,6 +151,7 @@ def main():
     except KeyboardInterrupt:
         for cap in caps:
             cap.release()
+            plat_detects[i].td.stop()
         cv2.destroyAllWindows()
         print("KeyboardInterrupt")
         exit(0)
